@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug",
+        "type": "lldb",
+        "request": "launch",
+        "program": "${workspaceFolder}/sort_colors/target/debug/sort_colors.exe",  // Replace with your executable path
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "env": {},
+        "sourceLanguages": ["rust"]
+      }
+    ]
+  }
