@@ -36,3 +36,10 @@ fn main() {
     println!("{:?}", GroupAnagrams::group_words(&str2));
     println!("{:?}", GroupAnagrams::group_words(&str3));
 }
+
+fn group_anagrams(strs: &Vec<String>) -> Vec<Vec<String> {
+    let mut map = HashMap::new(); 
+    for str in strs.iter() {
+            
+    }
+}
