@@ -38,8 +38,45 @@ fn main() {
     let mut k = 2;
     let mut nums = vec![1, 2, 2, 2, 3, 3, 3];
     println!("{:?}", Solution::get_top_k(&nums, k));
+    println!("{:?}", top_k(k as i32, &nums));
 
     k = 1; 
     nums = vec![7,7];
     println!("{:?}", Solution::get_top_k(&nums, k))
+}
+
+fn top_k(k: i32, nums: &Vec<i32>) -> Vec<i32> {
+    // Count the freq of the nums, record in HashMap. 
+    // Place the place keys in bucket using value as position. 
+    // Reverse there the bucket and return the top k elements. 
+    let mut freq: HashMap<i32, i32> = HashMap::new(); 
+    let mut bucket: Vec<Vec<i32>> = vec![Vec::new(); nums.len()];
+    let mut k_values: Vec<i32> = Vec::new();
+    let mut count = 0;
+
+    for num in nums.iter() {
+        if let Some(count) = freq.get_mut(&num) {
+            *count = *count + 1;
+        }
+        else {
+            freq.insert(*num, 1);
+        }
+    }
+
+    for (num, count) in freq.iter() {
+        bucket[*count as usize].push(*num); 
+    }
+
+    for nums in bucket.into_iter().rev() {
+        for num in nums.into_iter().rev() {
+            if count == k {
+                return k_values;
+            }
+
+            k_values.push(num);
+            count += 1; 
+        }
+    }
+
+    k_values
 }

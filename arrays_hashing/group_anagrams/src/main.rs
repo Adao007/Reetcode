@@ -32,14 +32,28 @@ fn main() {
     let str2 = vec!("x".to_string());
     let str3 = vec!("".to_string()); 
 
+    println!("{:?}", group_anagrams(&str1));
     println!("{:?}", GroupAnagrams::group_words(&str1));
     println!("{:?}", GroupAnagrams::group_words(&str2));
     println!("{:?}", GroupAnagrams::group_words(&str3));
 }
 
-fn group_anagrams(strs: &Vec<String>) -> Vec<Vec<String> {
-    let mut map = HashMap::new(); 
+fn group_anagrams(strs: &Vec<String>) -> Vec<Vec<String>> {
+    let mut map: HashMap<[i32; 26], Vec<String>> = HashMap::new(); 
     for str in strs.iter() {
-            
+        let letters: Vec<char> = str.chars().collect(); 
+        let mut k = [0; 26];
+        for letter in letters.iter() {
+            k[((*letter as u32) - ('a' as u32)) as usize] += 1; 
+        }
+
+        if let Some(group) = map.get_mut(&k) {
+            group.push(str.to_string());
+        } 
+        else {                
+            map.insert(k, vec!(str.to_string()));
+        }
     }
+
+    map.into_values().collect()
 }
