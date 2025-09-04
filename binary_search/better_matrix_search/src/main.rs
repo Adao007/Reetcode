@@ -11,14 +11,15 @@ impl Solution {
                 return true;
             }
             else if matrix[mid][0] > target {
-                mid = last_row;
-                break; 
+                right = mid - 1; 
             }
             else {
+                if matrix[mid][matrix[mid].len() - 1] >= target {
+                    break; 
+                }
                 left = mid + 1; 
             }
 
-            last_row = mid; 
             mid = ((right - left) / 2) + left;
         }
         
@@ -27,7 +28,6 @@ impl Solution {
         left = 0; 
         right = matrix[row].len();
         mid = ((right - left) / 2) + left; 
-        println!("{} {} {} {}", row, left, right, mid);
         while left < right {
             if matrix[row][mid] == target {
                 return true; 
@@ -50,6 +50,7 @@ impl Solution {
 
 fn main() {
     let matrix:[[i32; 4]; 3] = [[1, 2, 4, 8], [10, 11, 12, 13], [14, 20, 30, 40]]; 
-    let target = 30; 
+    let target = 9; 
     assert!(Solution::search_matrix(&matrix, target)); 
+    println!("All good!"); 
 }
