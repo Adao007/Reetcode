@@ -57,7 +57,7 @@ impl Solution {
             }
         } 
         Self::swap(vector, i + 1, high); 
-        i as i32 + 1
+        i + 1
     }
 
     fn swap(vector:&mut Vec<i32>, first: i32, second: i32) {
@@ -68,7 +68,7 @@ impl Solution {
 }
 
 fn main() {
-    let mut bananas = vec![24, 23, 22, 1]; 
+    let mut bananas = vec![3, 1]; 
     let hours = 4; 
     println!("The minimum rate of banana eating is {:?}", Solution::find_good_eating(&mut bananas, hours));
 }
