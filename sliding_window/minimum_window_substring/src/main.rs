@@ -27,7 +27,7 @@ impl Solution {
         }
 
         let mut left = 0; 
-        let mut right = t.len() - 1; 
+        let mut right = 0; 
         while right < s.len() {
             if key_map.contains_key(&s[right]) {
                 if let Some(existing) = map.get_mut(&s[right]) {
@@ -56,8 +56,8 @@ impl Solution {
                 }
             }
 
-                right += 1;
-            }
+            right += 1;
+        }
         shortest
     }     
 }
@@ -66,6 +66,14 @@ impl Solution {
 fn main() {
     let s = "OUZODYXAZV".to_string(); // Should return YXAZ
     let t = "XYZ".to_string(); 
-
     println!("Minimum String in s, containing t: {:?}", Solution::find_substring(s, t));
+
+    let s2 = "xyz".to_string(); // Should return YXAZ
+    let t2 = "xyz".to_string(); 
+    println!("Minimum String in s, containing t: {:?}", Solution::find_substring(s2, t2));
+
+    let s2 = "xy".to_string(); // Should return YXAZ
+    let t2 = "xyz".to_string(); 
+    println!("Minimum String in s, containing t: {:?}", Solution::find_substring(s2, t2));
+
 }
