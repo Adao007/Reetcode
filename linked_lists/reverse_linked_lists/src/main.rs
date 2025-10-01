@@ -1,30 +1,20 @@
-// Definition for singly-linked list. 
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>
-}
-impl ListNode{
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode {
-            next: None,
-            val
-        }
-    }
-}
-
-// Set current -> 
-// Set next -> prev
-// Set prev -> 
+use linked_lists::singly_linked_list::*; 
 
 fn main() {
-    // Given a singly linked list, reverse the list so that the 
-    // elements in the back are now in the front... 
-    // head = [0, 1, 2, 3] -> output = [3, 2, 1, 0]
-    
-}
+    let mut list = SinglyLinkedList::new(); 
+    list.push(1); 
+    list.push(2);
+    list.push(3); 
 
-// [0] -> [1] -> [2] -> [3]
-// head
-// 
+    // Before reverse
+    for i in list.iter() {
+        println!("{:?}", i); 
+    }
+
+    list.reverse_list(); 
+    // After reverse
+    println!("The List is now reversed!");
+    for i in list.iter() {
+        println!("{:?}", i);
+    }
+}

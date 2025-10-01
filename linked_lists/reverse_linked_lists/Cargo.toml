@@ -4,3 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+linked_lists = { path = "/Users/anthonydao/Rust_Workshop/Reetcode/linked_lists/entirely_too_many_lists/linked_lists" }

@@ -3,5 +3,12 @@
 version = 4
 
 [[package]]
+name = "linked_lists"
+version = "0.1.0"
+
+[[package]]
 name = "reverse_linked_lists"
 version = "0.1.0"
+dependencies = [
+ "linked_lists",
+]
