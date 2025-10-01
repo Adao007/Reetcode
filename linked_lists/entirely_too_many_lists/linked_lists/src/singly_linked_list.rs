@@ -1,10 +1,10 @@
 type Link<T> = Option<Box<Node<T>>>;
 
 pub struct SinglyLinkedList<T> {
-    head: Link<T>,
+    pub head: Link<T>,
 }
 
-struct Node<T> {
+pub struct Node<T> {
     elem: T,
     next: Link<T>,
 }

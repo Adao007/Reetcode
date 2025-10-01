@@ -1,0 +1,8 @@
+[package]
+name = "merge_linked_lists"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+linked_lists = {path = "../entirely_too_many_lists/linked_lists"}
+num-traits = "0.2.19"
