@@ -52,33 +52,27 @@ impl<T> SinglyLinkedList<T> {
 }
 
 impl<T: PartialOrd> SinglyLinkedList<T> {
-    pub fn merge_list(&mut self, mut other: Self) {
+    pub fn merge(&mut self, mut other: Self) {
         let mut current = &mut self.head;
 
-        // Process all nodes from the other list
-        while other.head.is_some() {
-            // If we've reached the end of self, just append the rest of other
-            if current.is_none() {
-                *current = other.head.take();
-                return;
-            }
+        while let Some(mut other_node) = other.head.take() {
+            // Take the next node from other list first
+            other.head = other_node.next.take();
 
-            if let Some(other_node) = other.head.as_ref() {
-                if let Some(current_node) = current.as_ref() {
-                    if other_node.elem <= current_node.elem {
-                        if let Some(mut node) = other.head.take() {
-                            other.head = node.next.take();
-                            node.next = current.take();
-                            *current = Some(node)
-                        }
-                    }
-
-                    // Move to next node in self
-                    if let Some(node) = current {
-                        current = &mut node.next;
+            // Find insertion point without holding a borrow
+            loop {
+                match current {
+                    None => break,
+                    Some(current_node) if other_node.elem <= current_node.elem => break,
+                    Some(current_node) => {
+                        current = &mut current_node.next;
                     }
                 }
             }
+
+            // Insert the node
+            other_node.next = current.take();
+            *current = Some(other_node);
         }
     }
 }
@@ -287,7 +281,7 @@ mod merge {
         other_list.push(2);
         other_list.push(1);
 
-        list.merge_list(other_list);
+        list.merge(other_list);
         assert_eq!(list.pop(), Some(1));
         assert_eq!(list.pop(), Some(1));
         assert_eq!(list.pop(), Some(2));
