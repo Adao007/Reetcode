@@ -49,30 +49,64 @@ impl<T> SinglyLinkedList<T> {
 
         self.head = prev;
     }
+
+    pub fn reverse(&mut self) {
+        let mut current = self.head.take();
+        let mut prev = None;
+
+        while let Some(mut node) = current {
+            current = node.next;
+            node.next = prev.take();
+            prev = Some(node);
+        }
+
+        self.head = prev;
+    }
 }
 
 impl<T: PartialOrd> SinglyLinkedList<T> {
     pub fn merge(&mut self, mut other: Self) {
+        // current points to self.head
         let mut current = &mut self.head;
 
         while let Some(mut other_node) = other.head.take() {
-            // Take the next node from other list first
             other.head = other_node.next.take();
 
-            // Find insertion point without holding a borrow
             loop {
                 match current {
                     None => break,
                     Some(current_node) if other_node.elem <= current_node.elem => break,
                     Some(current_node) => {
-                        current = &mut current_node.next;
+                        current = &mut current_node.next; // current points to node's next (which points to the value at next, not the node itself!)
                     }
                 }
             }
 
             // Insert the node
-            other_node.next = current.take();
-            *current = Some(other_node);
+            other_node.next = current.take(); // Remember that current is the pointer at next, taking here replaces what current is pointing at with None
+            // ie: if self is 1 -> 4 -> 6 and current is [1].next then take replaces 4 -> 6 with None and hands 4 -> 6 to other.next. [other].next -> 4 -> 6
+            *current = Some(other_node); // *current is [1].next, which is [1] -> None. We connect [1].next to other_node, which has been inserted! 
+        }
+    }
+
+    pub fn practice_merge(&mut self, mut other: Self) {
+        let mut s_pointer = &mut self.head;
+
+        while let Some(mut o_node) = other.head.take() {
+            other.head = o_node.next.take();
+
+            loop {
+                match s_pointer {
+                    None => break,
+                    Some(node) if o_node.elem <= node.elem => break,
+                    Some(node) => {
+                        s_pointer = &mut node.next;
+                    }
+                }
+            }
+
+            o_node.next = s_pointer.take();
+            *s_pointer = Some(o_node);
         }
     }
 }
@@ -259,7 +293,7 @@ mod reverse {
         list.push(2);
         list.push(3);
 
-        list.reverse_list();
+        list.reverse();
 
         assert_eq!(list.pop(), Some(1));
         assert_eq!(list.pop(), Some(2));
