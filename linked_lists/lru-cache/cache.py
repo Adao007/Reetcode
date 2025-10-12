@@ -1,9 +1,10 @@
-
+# Our node class supports doubly linked list: prev and next
 class Node: 
     def __init__(self, key, val):
         self.key, self.val = key, val
         self.prev = self.next = None
 
+# Note: self.left and self.right are sentinel nodes. 
 class LRUCache:
     def __init__(self, capacity: int):
         self.cap = capacity 
@@ -19,8 +20,8 @@ class LRUCache:
 
     # insert node at right 
     def insert(self, node): 
-        prev, nxt = self.right.prev, self.right
-        prev.next = nxt.prev = node
+        prev, nxt = self.right.prev, self.right # prev = right sen points to. nxt = right sen
+        prev.next = nxt.prev = node # prev.next = new node
         node.next, node.prev = nxt, prev
 
     def get(self, key: int) -> int:
@@ -30,7 +31,7 @@ class LRUCache:
             return self.cache[key].val
 
         return -1 
-
+    
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
             self.remove(self.cache[key])
