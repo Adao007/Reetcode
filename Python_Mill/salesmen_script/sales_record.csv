@@ -1,0 +1,13 @@
+id,client,salesmen,sales_potential,status
+1,Tony Love Inc,Jupi,800,closed
+2,GamerLand,Gabe, 100,in-progress
+3,StudyGuy Inc,Jupi,200,closed
+4,AnimeTown,Gabe,200,closed
+5,ComputerGuy,Tony,1000,in-progress
+6,SillyGuy,Tony,150,closed
+7,Jupi Love Inc,800,closed
+8,NailTown,Azalea,100,closed
+9,AndyGuy,Azalea,1000,in-progress
+10,YoutubeWatch,Azalea,300,closed
+11,AmazonManage,Clara,70000,closed
+12,LifeBalance,Clara,100000,in-progress
